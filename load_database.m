@@ -7,6 +7,7 @@ function [out_train, out_test, folder_name, row, col, ext] = load_database(subje
     nsamples = 20; %ts
     ntest = 7; %nsts
     %}
+    
     % SETTING UP
     
     folder_name = '/home/jesse/Documents/Face_Recognition_Project/Datasets/grimace_database';
@@ -28,7 +29,7 @@ function [out_train, out_test, folder_name, row, col, ext] = load_database(subje
     end
 
     % FIND WHICH SAMPLES OF EACH SUBJECTS SHOULD BE USED FOR TRAINING AND
-    % REMAINING FOR TESTING
+    % USE THE REMAINING FOR TESTING
     for z=1:subjects
     
         alltrain = [];

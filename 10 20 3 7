@@ -1,0 +1,27 @@
+10 20 3 7
+
+HELPERS
+
+phanisample.m		Does everything
+phanisample.fig		Loads the GUI
+
+loaddatabase1.m		Opens up choose files and then loads the selected database
+
+showImages.m		shows loaded images
+normalize
+
+TRAINING
+
+gabortrain.m		Trains data using Gabor algorithm and DTW algorithm
+gaborbank.m			Does something related to the above
+genGaborKernelF.m	Same thing as above
+genGaborKernel.m	Same as above
+gaborConvF.m		You can guess what it does by now
+gda.m				I think it does something similar too XD
+
+kernel.m			Implements Kernel algorithm
+
+TESTING
+
+dtwrecognition2.m	gives all probabilities
+dtw.m				does something other than giving probabilities

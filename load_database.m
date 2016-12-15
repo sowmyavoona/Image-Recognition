@@ -1,4 +1,4 @@
-function [out_train, out_test, folder_name, row, col, ext] = load_database(nsubjects, ntrain, ntest, nsamples)
+function [out_train, out_test, folder_name, row, col, ext, trainLabel, testLabel] = load_database(nsubjects, ntrain, ntest, nsamples)
 
     %10 3 7 20
     %{
@@ -95,9 +95,17 @@ function [out_train, out_test, folder_name, row, col, ext] = load_database(nsubj
 
     % STORE TRAIN LABELS FOR FUTURE USE
     trainLabel = [];
-    for i = z:nsubjects
+    for z = 1:nsubjects
         for j = 1:ntrain
             trainLabel(:, (z-1)*ntrain+j) = z;
+        end
+    end
+    
+        % STORE TRAIN LABELS FOR FUTURE USE
+    testLabel = [];
+    for z = 1:nsubjects
+        for j = 1:ntest
+            testLabel(:, (z-1)*ntest+j) = z;
         end
     end
     

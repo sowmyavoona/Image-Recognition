@@ -91,7 +91,7 @@ function mappedData = gda(data, trainData, trainLabel, options, nDim)
         end
     end
     kTrain = cell2mat(kTrainCell);
-
+    
     % Make data have zero mean
 
     [mnm, n] = size(trainData);
@@ -113,7 +113,7 @@ function mappedData = gda(data, trainData, trainLabel, options, nDim)
     end
 
     wTrain = cell2mat(wTrainCell);
-
+    
     % Decompose zeroMeanKtrain using eigen-decomposition
 
     [P, gamma] = eig(zeroMeanKtrain);
@@ -122,8 +122,8 @@ function mappedData = gda(data, trainData, trainLabel, options, nDim)
     gamma = diagonal(index);
     P = P(:,index);
 
-
-
+    save Variables/P P;
+    
     % Remove eigenvalues with relatively small value
 
     maxEigVal = max(abs(gamma));
@@ -201,6 +201,7 @@ function mappedData = gda(data, trainData, trainLabel, options, nDim)
     % Project all data points non-linearly onto a new lower-dimensional subspace (w):
 
     mappedData = (w.') * (zeroMeanKdata);
-
+    
+    save Variables/gda_output mappedData
     
 end

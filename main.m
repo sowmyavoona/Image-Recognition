@@ -8,3 +8,6 @@ ntest = 7; %nsts
 
 % gabor train
 [mappedDataTrain, mappedDataTest] = gabor_train(nsubjects, ntrain, ntest, out_train, out_test, row, col, trainLabel, testLabel);
+
+%dtw
+[recognizedLabels] = dtwRecognition(nsubjects, ntrain, ntest, mappedDataTrain, mappedDataTest);

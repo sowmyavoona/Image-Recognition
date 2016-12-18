@@ -31,4 +31,5 @@ function cost = dtw(testImage, trainImage)
     end
     
     cost = cost(noOfVecTest,noOfVecTrain)/double(noOfVecTest+noOfVecTrain);
-    
+
+end

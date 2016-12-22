@@ -121,8 +121,6 @@ function mappedData = gda(data, trainData, trainLabel, options, nDim)
     [nmn,index] = sort(diagonal,'descend');
     gamma = diagonal(index);
     P = P(:,index);
-
-    save Variables/P P;
     
     % Remove eigenvalues with relatively small value
 
@@ -201,7 +199,5 @@ function mappedData = gda(data, trainData, trainLabel, options, nDim)
     % Project all data points non-linearly onto a new lower-dimensional subspace (w):
 
     mappedData = (w.') * (zeroMeanKdata);
-    
-    save Variables/gda_output mappedData
     
 end

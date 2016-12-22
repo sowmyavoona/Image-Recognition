@@ -77,8 +77,6 @@ if ~isfield(options,'KernelType')
     options.KernelType = 'linear';          % default kernel function is linear
 end
 
-options.KernelType = 'linear';
-
 switch lower(options.KernelType)
     case {lower('linear')}                 
         k = u'*v;                          % u'*v

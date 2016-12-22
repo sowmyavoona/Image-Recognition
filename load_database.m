@@ -1,4 +1,4 @@
-function [out_train, out_test, folder_name, row, col, ext, trainLabel, testLabel] = load_database(nsubjects, ntrain, ntest, nsamples)
+function [out_train, out_test, folder_name, row, col, ext, trainLabel] = load_database(nsubjects, ntrain, ntest, nsamples)
 
     %10 3 7 20
     %{
@@ -11,10 +11,11 @@ function [out_train, out_test, folder_name, row, col, ext, trainLabel, testLabel
     % SETTING UP
     
     folder_name = '/home/jesse/Documents/Face_Recognition_Project/Datasets/grimace_database';
+    %folder_name = '/home/jesse/Documents/Face_Recognition_Project/Datasets/yalefaces_edited';
     %folder_name = uigetdir('', 'Select training images path');
 
     ext = '';
-    possible_ext = {'.bmp' '.png' '.jpg' '.pgm' '.tif' };
+    possible_ext = {'.bmp' '.png' '.jpg' '.pgm' '.tif' '.gif'};
     clc
 
     % CHECK WHICH ONE RETURNS TRUE
@@ -39,9 +40,11 @@ function [out_train, out_test, folder_name, row, col, ext, trainLabel, testLabel
 
         % READ ALL SAMPLES
         for j=1:nsamples
-            file_name = strcat(folder_name,'/(', num2str(z), ')/(', num2str(j),')', '.jpg');
+            file_name = strcat(folder_name,'/(', num2str(z), ')/(', num2str(j),')', ext);
             file = imread(file_name);
-            file = rgb2gray(file);
+            if d > 1
+                file = rgb2gray(file);
+            end
             tv(j, :) = reshape(file, 1, size(file, 1)*size(file, 2));
         end
 
@@ -101,13 +104,6 @@ function [out_train, out_test, folder_name, row, col, ext, trainLabel, testLabel
         end
     end
     
-        % STORE TRAIN LABELS FOR FUTURE USE
-    testLabel = [];
-    for z = 1:nsubjects
-        for j = 1:ntest
-            testLabel(:, (z-1)*ntest+j) = z;
-        end
-    end
     
     % COVERT TO DOUBLE AND YOU'RE DONE!
     out_train = double(out_train);

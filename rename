@@ -1,0 +1,17 @@
+
+for myfile in {1..15}
+do
+
+value=$(printf "%02d" $myfile)
+cp ../yalefaces/subject${value}* \(${myfile}\)/
+
+
+a=1
+for i in \(${myfile}\)/*; do
+  new=$(printf "(%d)" "$a")
+  mv -- "$i" \(${myfile}\)/"$new.gif"
+  let a=a+1
+
+done
+	
+done

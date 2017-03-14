@@ -1,10 +1,10 @@
-function [mappedDataTrain, mappedDataTest] = gabortrain(nsubjects, ntrain, ntest, out_train, out_test, row, col, trainLabel, myOptions)
+function [mappedDataTrain, mappedDataTest] = gabortrain(nsubjects, ntrain, ntest, out_train, out_test, row, col, trainLabel)
 
     fea = []; 
     featdb = [];
     mappedDataTest = [];
     mappedDataTrain = [];
-    
+
     mu = [0 1 2 3 4 5 6 7]; % angle
     nu = [0 1 2 3 4]; % scale
     imgSz = 32;
@@ -28,10 +28,11 @@ function [mappedDataTrain, mappedDataTest] = gabortrain(nsubjects, ntrain, ntest
 
 	for i = 1:nsubjects*ntrain
 		data = fea(:, i);
-		mappedDataTrain(:, i) = gda(data, fea, trainLabel, myOptions);
+		mappedDataTrain(:, i) = gdaSir(data, fea, trainLabel, 'linear');
     end
     
     disp('train files done');
+    temp = [];
 
     for i = 1:nsubjects*ntest
 
@@ -50,7 +51,7 @@ function [mappedDataTrain, mappedDataTest] = gabortrain(nsubjects, ntrain, ntest
 
 	for i = 1:nsubjects*ntest
 		data = featdb(:, i);
-		mappedDataTest(:, i) = gda(data, fea, trainLabel, myOptions);
+		mappedDataTest(:, i) = gdaSir(data, fea, trainLabel,'linear');
     end
 
     disp('test files done');

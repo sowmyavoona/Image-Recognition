@@ -1,27 +1,20 @@
-function [out_train, out_test, folder_name, row, col, ext, trainLabel] = load_database(nsubjects, ntrain, ntest, nsamples)
+function [out_train, out_test, folder_name, row, col, ext, trainLabel, testLabel] = load_database(folder_name, nsubjects, ntrain, ntest, nsamples)
 
-    %10 3 7 20
-    %{
-    nsubjects = 10; %nc
-    ntrain = 3; %nstr
-    nsamples = 20; %ts
-    ntest = 7; %nsts
-    %}
-    
     % SETTING UP
-    
-    folder_name = '/home/jesse/Documents/Face_Recognition_Project/Datasets/grimace_database';
-    %folder_name = '/home/jesse/Documents/Face_Recognition_Project/Datasets/yalefaces_edited';
-    %folder_name = uigetdir('', 'Select training images path');
+ 
+%   folder_name = 'C:\Users\Ganesh\Documents\sowmya\faceRecognition\Datasets\grimace_database';
+%   folder_name = 'C:\Users\Ganesh\Documents\sowmya\faceRecognition\Datasets\Dataset';
+%   folder_name = 'C:\Users\Ganesh\Documents\sowmya\faceRecognition\jesseDatasets\yalefaces_edited';
+%   folder_name = uigetdir('', 'Select training images path');
 
     ext = '';
-    possible_ext = {'.bmp' '.png' '.jpg' '.pgm' '.tif' '.gif'};
+    possible_ext = {'.bmp' '.png' '.jpg' '.pgm' '.tif' '.gif' };
     clc
 
     % CHECK WHICH ONE RETURNS TRUE
     for i = 1:size(possible_ext, 2)
         try
-            file = strcat(folder_name, '/(1)/(1)', char(possible_ext(i)));
+            file = strcat(folder_name, '\(1)\(1)', char(possible_ext(i)));
             test = imread(file);
             [col row d] = size(test);
             ext = char(possible_ext(i));
@@ -40,9 +33,9 @@ function [out_train, out_test, folder_name, row, col, ext, trainLabel] = load_da
 
         % READ ALL SAMPLES
         for j=1:nsamples
-            file_name = strcat(folder_name,'/(', num2str(z), ')/(', num2str(j),')', ext);
+            file_name = strcat(folder_name,'\(', num2str(z), ')\(', num2str(j),')', ext);
             file = imread(file_name);
-            if d > 1
+            if(folder_name ~= 'C:\Users\Ganesh\Documents\sowmya\projects\faceRecognition\jesseDatasets\yalefaces_edited')
                 file = rgb2gray(file);
             end
             tv(j, :) = reshape(file, 1, size(file, 1)*size(file, 2));
@@ -77,7 +70,7 @@ function [out_train, out_test, folder_name, row, col, ext, trainLabel] = load_da
         
         % STORE ALL TRAIN SAMPLE DATA IN A SINGLE VARIABLE
         for k = 1:ntrain
-            file = imread(strcat(folder_name, '/(', num2str(z), ')/(', num2str(alltrain(k)), ')', ext));
+            file = imread(strcat(folder_name, '\(', num2str(z), ')\(', num2str(alltrain(k)), ')', ext));
             try
                 file = rgb2gray(file);
             catch
@@ -87,7 +80,7 @@ function [out_train, out_test, folder_name, row, col, ext, trainLabel] = load_da
 
         % STORE ALL TEST SAMPLE DATA IN A SINGLE VARIABLE
         for k = 1:ntest
-            file = imread(strcat(folder_name, '/(', num2str(z), ')/(', num2str(alltest(k)), ')', ext));
+            file = imread(strcat(folder_name, '\(', num2str(z), ')\(', num2str(alltest(k)), ')', ext));
             try
                 file = rgb2gray(file);
             catch
@@ -104,6 +97,13 @@ function [out_train, out_test, folder_name, row, col, ext, trainLabel] = load_da
         end
     end
     
+    % STORE TRAIN LABELS FOR FUTURE USE
+    testLabel = [];
+    for z = 1:nsubjects
+        for j = 1:ntest
+            testLabel(:, (z-1)*ntest+j) = z;
+        end
+    end
     
     % COVERT TO DOUBLE AND YOU'RE DONE!
     out_train = double(out_train);

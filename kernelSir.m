@@ -1,4 +1,4 @@
-function k = kernel(u, v, givenOptions)
+function k = kernelSir(u,v,options)
 
 % KERNEL determines kernel function for kernel-based machine learning 
 % methods including Support Vector Machines.
@@ -56,10 +56,8 @@ function k = kernel(u, v, givenOptions)
 
 % checking the correct use of input arguments:
 
-if (~exist('givenOptions','var'))
+if (~exist('options','var'))
    options.KernelType = 'linear';
-else
-    options.KernelType = givenOptions;
 end
 
 % checking the same dimensionality of input vectors:
@@ -76,7 +74,6 @@ end
 if ~isfield(options,'KernelType')
     options.KernelType = 'linear';          % default kernel function is linear
 end
-
 
 switch lower(options.KernelType)
     case {lower('linear')}                 

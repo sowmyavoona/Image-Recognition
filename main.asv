@@ -208,5 +208,5 @@ end
 newSvmPercent = (newSvmPercent / size(testLabel,2)) * 100;
 
 %%
-testMdl = fitcecoc(svmTrain,svmTrainLabel);
-[testsvmLabel,testsvmScore] = predict(testMdl,svmTrain);
+Mdl = fitcecoc(svmTrain,svmTrainLabel);
+[svmLabel,svmScore] = predict(Mdl,svmTest);
